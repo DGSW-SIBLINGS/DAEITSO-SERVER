@@ -23,8 +23,6 @@ spring:
     static-path-pattern: /static/**
 
 logging:
-  file:
-    path: /Users/jimin/Documents/github/MenToMen-Server/log
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
@@ -46,10 +44,12 @@ cloud:
     stack:
       auto: false
 
-token:
-  client-id: ${CLIENT_ID}
-  client-secret: ${CLIENT_SECRET}
-  dauth: ${DAUTH_B1ND}
-  open-dodam: ${OPEN_DODAM_B1ND}
-  jwt-secret-key: ${JWT_SECRET_KEY}
-
+app:
+  jwt:
+    jwtKey: ${JWT_SECRET_KEY}
+  dauth:
+    client_id: ${CLIENT_ID}
+    client_secret: ${CLIENT_SECRET}
+  dodam:
+    dauth: ${DAUTH_B1ND}
+    openDodam: ${OPEN_DODAM_B1ND}
