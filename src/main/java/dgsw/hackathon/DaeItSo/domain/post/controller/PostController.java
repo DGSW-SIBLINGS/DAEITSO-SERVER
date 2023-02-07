@@ -1,5 +1,6 @@
 package dgsw.hackathon.DaeItSo.domain.post.controller;
 
+import dgsw.hackathon.DaeItSo.domain.post.domain.enums.Category;
 import dgsw.hackathon.DaeItSo.domain.post.dto.PostUpdateDto;
 import dgsw.hackathon.DaeItSo.domain.post.service.PostService;
 import dgsw.hackathon.DaeItSo.domain.user.domain.entity.User;
@@ -38,10 +39,10 @@ public class PostController {
         return DataResponse.ok("단일 게시물 조회 성공", postService.findPostOne(postId));
     }
 
-////    @GetMapping("/read-all/{tag}")
-////    public ResponseEntity<DataResponse<List<PostResponseDto>>> readAllByTag(@PathVariable("tag") Tag tag) {
-////        return DataResponse.ok("태그로 게시물 조회 성공", postService.findPostByTag(tag));
-////    }
+    @GetMapping("/tag/{name}")
+    public ResponseEntity<DataResponse<List<PostResponseDto>>> readAllByTag(@PathVariable("name") Category category) {
+        return DataResponse.ok("태그로 게시물 조회 성공", postService.findPostByCategory(category));
+    }
 
     @CheckToken
     @GetMapping("/user/{userId}")
