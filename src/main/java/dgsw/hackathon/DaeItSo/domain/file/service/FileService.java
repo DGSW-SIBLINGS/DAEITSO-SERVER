@@ -42,7 +42,8 @@ public class FileService {
 
             s3Client.putObject(s3Properties.getBucket(), s3FileName, file.getInputStream(), metadata);
 
-            imgUrlResponseDtoList.add(new ImgUrlResponseDto(s3Client.getUrl(s3Properties.getBucket(), s3FileName).toString()));
+            imgUrlResponseDtoList.add(ImgUrlResponseDto.builder()
+                    .imgUrl(s3Client.getUrl(s3Properties.getBucket(), s3FileName).toString()).build());
         }
         return imgUrlResponseDtoList;
     }

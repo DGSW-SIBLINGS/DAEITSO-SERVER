@@ -1,12 +1,10 @@
 package dgsw.hackathon.DaeItSo.domain.auth.controller;
 
-import dgsw.hackathon.DaeItSo.domain.auth.dto.api.DAuthApiRequestDto;
 import dgsw.hackathon.DaeItSo.domain.auth.dto.req.DAuthClientRequestDto;
 import dgsw.hackathon.DaeItSo.domain.auth.dto.res.AccessTokenDto;
 import dgsw.hackathon.DaeItSo.domain.auth.dto.res.TokenResponseDto;
 import dgsw.hackathon.DaeItSo.domain.auth.service.AuthService;
 import dgsw.hackathon.DaeItSo.global.annotation.CheckToken;
-import dgsw.hackathon.DaeItSo.global.config.properties.DauthProperties;
 import dgsw.hackathon.DaeItSo.global.response.DataResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +18,10 @@ import java.util.concurrent.Callable;
 public class AuthController {
 
     private final AuthService authService;
-    private final DauthProperties dauthProperties;
 
     @PostMapping("/login")
     public Callable<ResponseEntity<DataResponse<TokenResponseDto>>> resCode(@RequestBody DAuthClientRequestDto dAuthClientRequestDto){
-        TokenResponseDto token = authService.getToken(new DAuthApiRequestDto(dAuthClientRequestDto.getCode(), dauthProperties.getClientId(), dauthProperties.getClientSecret()));
+        TokenResponseDto token = authService.getToken(dAuthClientRequestDto.getCode());
         return () -> { return DataResponse.ok("인증 성공", token);};
     }
 

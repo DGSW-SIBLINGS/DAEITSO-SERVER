@@ -72,7 +72,8 @@ public class RequestInterceptor implements HandlerInterceptor {
         if (tokenType.equals(TokenType.REFRESHTOKEN)) {
 
             String accessToken = jwtUtil.generateAccessToken(user.getEmail());
-            AccessTokenDto accessTokenDto = new AccessTokenDto(accessToken);
+            AccessTokenDto accessTokenDto = AccessTokenDto.builder()
+                    .accessToken(accessToken).build();
             request.setAttribute("accessToken", accessTokenDto);
 
             return true;

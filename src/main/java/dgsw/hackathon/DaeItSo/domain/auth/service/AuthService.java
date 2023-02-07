@@ -4,6 +4,7 @@ import dgsw.hackathon.DaeItSo.domain.auth.dto.api.*;
 import dgsw.hackathon.DaeItSo.domain.auth.dto.res.TokenResponseDto;
 import dgsw.hackathon.DaeItSo.domain.user.service.UserService;
 import dgsw.hackathon.DaeItSo.global.config.jwt.JwtUtil;
+import dgsw.hackathon.DaeItSo.global.config.properties.DauthProperties;
 import dgsw.hackathon.DaeItSo.global.config.properties.DodamProperties;
 import dgsw.hackathon.DaeItSo.global.config.webclient.WebClientUtil;
 import dgsw.hackathon.DaeItSo.global.config.webclient.parser.HeaderParser;
@@ -19,14 +20,19 @@ public class AuthService {
     private final WebClientUtil webClientUtil;
     private final JwtUtil jwtUtil;
     private final UserService userService;
+    private final DauthProperties dauthProperties;
     private final DodamProperties dodamProperties;
 
 
-    public TokenResponseDto getToken(DAuthApiRequestDto dAuthApiRequestDto) {
+    public TokenResponseDto getToken(String code) {
 
         DAuthTokenResponseDto dAuthTokenResponseDto = webClientUtil.post(
                 dodamProperties.getDauth(),
-                dAuthApiRequestDto,
+                DAuthApiRequestDto.builder()
+                        .code(code)
+                        .client_id(dauthProperties.getClientId())
+                        .client_secret(dauthProperties.getClientSecret())
+                        .build(),
                 DAuthTokenResponseDto.class
         ).getBody();
 

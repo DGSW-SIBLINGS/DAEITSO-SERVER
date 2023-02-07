@@ -3,12 +3,10 @@ package dgsw.hackathon.DaeItSo.domain.auth.dto.api;
 import dgsw.hackathon.DaeItSo.domain.user.domain.Roles;
 import dgsw.hackathon.DaeItSo.domain.user.domain.StdInfo;
 import dgsw.hackathon.DaeItSo.domain.user.domain.entity.User;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 public class DAuthUserInfoDataResponseDto {
 
