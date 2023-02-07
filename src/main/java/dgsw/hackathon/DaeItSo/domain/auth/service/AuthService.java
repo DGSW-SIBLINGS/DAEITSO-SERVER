@@ -1,14 +1,12 @@
 package dgsw.hackathon.DaeItSo.domain.auth.service;
 
-import dgsw.hackathon.DaeItSo.domain.auth.dto.api.DAuthApiRequestDto;
-import dgsw.hackathon.DaeItSo.domain.auth.dto.api.DAuthTokenResponseDto;
-import dgsw.hackathon.DaeItSo.domain.auth.dto.api.DAuthUserInfoDataResponseDto;
-import dgsw.hackathon.DaeItSo.domain.auth.dto.api.DAuthUserInfoResponseDto;
+import dgsw.hackathon.DaeItSo.domain.auth.dto.api.*;
 import dgsw.hackathon.DaeItSo.domain.auth.dto.res.TokenResponseDto;
 import dgsw.hackathon.DaeItSo.domain.user.service.UserService;
 import dgsw.hackathon.DaeItSo.global.config.jwt.JwtUtil;
 import dgsw.hackathon.DaeItSo.global.config.properties.DodamProperties;
 import dgsw.hackathon.DaeItSo.global.config.webclient.WebClientUtil;
+import dgsw.hackathon.DaeItSo.global.config.webclient.parser.HeaderParser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +37,9 @@ public class AuthService {
 
         DAuthUserInfoResponseDto infoResponseDto = webClientUtil.get(
                 dodamProperties.getOpenDodam(),
-                dto.getAccessToken(),
+                HeaderParser.builder()
+                        .type("Authorization")
+                        .value("Bearer " + dto.getAccessToken()).build(),
                 DAuthUserInfoResponseDto.class
         ).getBody();
 

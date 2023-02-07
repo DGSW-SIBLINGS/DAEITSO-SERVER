@@ -1,5 +1,6 @@
 package dgsw.hackathon.DaeItSo.global.config.webclient;
 
+import dgsw.hackathon.DaeItSo.global.config.webclient.parser.HeaderParser;
 import dgsw.hackathon.DaeItSo.global.error.CustomError;
 import dgsw.hackathon.DaeItSo.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -25,10 +26,10 @@ public class WebClientUtil {
                 .block();
     }
 
-    public <T> ResponseEntity<T> get(String url, String accessToken, Class<T> responseDtoClass) {
+    public <T> ResponseEntity<T> get(String url, HeaderParser headerParser, Class<T> responseDtoClass) {
         return webClientConfig.webClient().method(HttpMethod.GET)
                 .uri(url)
-                .header("Authorization", "Bearer " + accessToken)
+                .header(headerParser.getType(), headerParser.getValue())
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError, clientResponse -> Mono.error(CustomError.of(ErrorCode.INTERNAL_SERVER_ERROR)))
                 .onStatus(HttpStatusCode::is5xxServerError, clientResponse -> Mono.error(CustomError.of(ErrorCode.INTERNAL_SERVER_ERROR)))
