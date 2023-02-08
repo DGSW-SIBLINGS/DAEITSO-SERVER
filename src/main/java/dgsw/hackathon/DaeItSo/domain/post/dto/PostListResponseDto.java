@@ -1,24 +1,22 @@
 package dgsw.hackathon.DaeItSo.domain.post.dto;
 
-import dgsw.hackathon.DaeItSo.domain.comment.domain.dto.CommentResponseDto;
-import dgsw.hackathon.DaeItSo.domain.post.domain.enums.Category;
 import dgsw.hackathon.DaeItSo.domain.post.domain.entity.Post;
+import dgsw.hackathon.DaeItSo.domain.post.domain.enums.Category;
+import dgsw.hackathon.DaeItSo.domain.post.domain.enums.FreeShare;
 import dgsw.hackathon.DaeItSo.domain.post.domain.enums.Place;
 import dgsw.hackathon.DaeItSo.domain.user.domain.StdInfo;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import dgsw.hackathon.DaeItSo.domain.post.domain.enums.FreeShare;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class PostResponseDto {
+public class PostListResponseDto {
 
     private Category category;
     private LocalDateTime createDateTime;
@@ -35,16 +33,15 @@ public class PostResponseDto {
     private StdInfo stdInfo;
     private Long like;
     private Long author;
-    private List<CommentResponseDto> comments;
 
-    public PostResponseDto(Post post) {
+    public PostListResponseDto(Post post) {
         this.category = post.getCategory();
         this.createDateTime = post.getCreatePostDateTime();
         this.updateDateTime = post.getUpdatePostDateTime();
         this.freeShare = post.getFreeShare();
         this.content = post.getContent();
         if(post.getImgUrl() != null)
-        this.imgUrls = List.of(post.getImgUrl().split("///"));
+            this.imgUrls = List.of(post.getImgUrl().split("///"));
         this.postId = post.getId();
         this.userName = post.getUser().getName();
         this.profileUrl = post.getUser().getProfileImage();
@@ -54,7 +51,5 @@ public class PostResponseDto {
         this.author = post.getUser().getId();
         this.place = post.getPlace();
         this.price = post.getPrice();
-        this.comments = post.getCommentList().stream().map(comment -> CommentResponseDto.builder()
-                .comment(comment).build()).collect(Collectors.toList());
     }
 }

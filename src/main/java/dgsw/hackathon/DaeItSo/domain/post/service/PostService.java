@@ -3,6 +3,7 @@ package dgsw.hackathon.DaeItSo.domain.post.service;
 import dgsw.hackathon.DaeItSo.domain.file.service.FileService;
 import dgsw.hackathon.DaeItSo.domain.post.domain.entity.Post;
 import dgsw.hackathon.DaeItSo.domain.post.domain.enums.Category;
+import dgsw.hackathon.DaeItSo.domain.post.dto.PostListResponseDto;
 import dgsw.hackathon.DaeItSo.domain.post.dto.PostUpdateDto;
 import dgsw.hackathon.DaeItSo.domain.post.repository.PostRepository;
 import dgsw.hackathon.DaeItSo.domain.user.domain.entity.User;
@@ -32,9 +33,9 @@ public class PostService {
         postRepository.save(postSubmitDto.toEntity(postSubmitDto, user));
     }
 
-    public List<PostResponseDto> findPostAll() {
+    public List<PostListResponseDto> findPostAll() {
         return postRepository.findAll(Sort.by(Sort.Direction.DESC, "id")).stream()
-                .map(post -> new PostResponseDto(post))
+                .map(post -> new PostListResponseDto(post))
                 .collect(Collectors.toList());
     }
 
@@ -45,15 +46,15 @@ public class PostService {
         return new PostResponseDto(post);
     }
 
-    public List<PostResponseDto> findPostByCategory(Category category) {
+    public List<PostListResponseDto> findPostByCategory(Category category) {
         return postRepository.findAllByCategory(category, Sort.by(Sort.Direction.DESC, "id")).stream()
-                .map( post -> new PostResponseDto(post))
+                .map( post -> new PostListResponseDto(post))
                 .collect(Collectors.toList());
     }
 
-    public List<PostResponseDto> findPostByUser(User user) {
+    public List<PostListResponseDto> findPostByUser(User user) {
         return postRepository.findAllByUser(user, Sort.by(Sort.Direction.DESC, "id")).stream()
-                .map(post -> new PostResponseDto(post))
+                .map(post -> new PostListResponseDto(post))
                 .collect(Collectors.toList());
     }
 

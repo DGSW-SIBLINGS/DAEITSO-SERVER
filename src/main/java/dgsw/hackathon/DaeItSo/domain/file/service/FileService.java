@@ -76,7 +76,6 @@ public class FileService {
                 }
             }
             if (checkUrl == false) {
-                System.out.println("delete");
                 s3Client.deleteObject(new DeleteObjectRequest(s3Properties.getBucket(), originalFileName));
             }
         }

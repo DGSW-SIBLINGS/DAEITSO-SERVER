@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
 @Getter
 public class PostSubmitDto {
 
-    private List<ImgUrlResponseDto> imgUrls;
+//    private List<ImgUrlResponseDto> imgUrls;
+    private String imgUrls;
     private Category category;
     private String title;
     private String content;
@@ -31,7 +32,8 @@ public class PostSubmitDto {
                 .freeShare(postSubmitDto.getFreeShare())
                 .price(postSubmitDto.getPrice())
                 .content(postSubmitDto.getContent())
-                .imgUrl(String.join("///", postSubmitDto.getImgUrls().stream().map(
-                        imgUrlResponseDto -> imgUrlResponseDto.getImgUrl()).collect(Collectors.toList()))).build();
+                .imgUrl(postSubmitDto.getImgUrls()).build();
+//                .imgUrl(String.join("///", postSubmitDto.getImgUrls().stream().map(
+//                        imgUrlResponseDto -> imgUrlResponseDto.getImgUrl()).collect(Collectors.toList()))).build();
     }
 }

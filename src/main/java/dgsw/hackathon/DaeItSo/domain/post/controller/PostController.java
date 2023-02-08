@@ -1,6 +1,7 @@
 package dgsw.hackathon.DaeItSo.domain.post.controller;
 
 import dgsw.hackathon.DaeItSo.domain.post.domain.enums.Category;
+import dgsw.hackathon.DaeItSo.domain.post.dto.PostListResponseDto;
 import dgsw.hackathon.DaeItSo.domain.post.dto.PostUpdateDto;
 import dgsw.hackathon.DaeItSo.domain.post.service.PostService;
 import dgsw.hackathon.DaeItSo.domain.user.domain.entity.User;
@@ -30,7 +31,7 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<DataResponse<List<PostResponseDto>>> readAll() {
+    public ResponseEntity<DataResponse<List<PostListResponseDto>>> readAll() {
         return DataResponse.ok("전체 게시물 조회 성공", postService.findPostAll());
     }
 
@@ -40,13 +41,13 @@ public class PostController {
     }
 
     @GetMapping("/tag/{name}")
-    public ResponseEntity<DataResponse<List<PostResponseDto>>> readAllByTag(@PathVariable("name") Category category) {
-        return DataResponse.ok("태그로 게시물 조회 성공", postService.findPostByCategory(category));
+    public ResponseEntity<DataResponse<List<PostListResponseDto>>> readAllByTag(@PathVariable("name") Category category) {
+        return DataResponse.ok("카테고리로 게시물 조회 성공", postService.findPostByCategory(category));
     }
 
     @CheckToken
     @GetMapping("/user/{userId}")
-    public ResponseEntity<DataResponse<List<PostResponseDto>>> readAllByUser(@RequestAttribute User user) {
+    public ResponseEntity<DataResponse<List<PostListResponseDto>>> readAllByUser(@RequestAttribute User user) {
         return DataResponse.ok("유저 게시물 조회 성공", postService.findPostByUser(user));
     }
 
