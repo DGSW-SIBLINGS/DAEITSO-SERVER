@@ -21,10 +21,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     protected ResponseEntity handleNotReadableException(HttpMessageNotReadableException e) {
         return ResponseEntity
-                .status(404)
+                .status(400)
                 .body(ErrorResponseEntity.builder()
-                        .status(ErrorCode.NOT_FOUND.getHttpStatus().value())
-                        .code(ErrorCode.NOT_FOUND.name())
+                        .status(ErrorCode.WRONG_ENUM.getHttpStatus().value())
+                        .code(ErrorCode.WRONG_ENUM.name())
                         .message(e.getMessage())
                         .build());
     }
