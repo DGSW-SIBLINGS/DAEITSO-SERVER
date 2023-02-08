@@ -1,5 +1,6 @@
 package dgsw.hackathon.DaeItSo.domain.post.domain.entity;
 
+import dgsw.hackathon.DaeItSo.domain.comment.domain.entity.Comment;
 import dgsw.hackathon.DaeItSo.domain.post.domain.enums.Category;
 import dgsw.hackathon.DaeItSo.domain.post.domain.enums.FreeShare;
 import dgsw.hackathon.DaeItSo.domain.post.domain.enums.Place;
@@ -15,6 +16,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
@@ -66,6 +69,9 @@ public class Post {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Place place;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Comment> commentList = new ArrayList<>();
 
     @Builder
     public Post(User user, Category category, String content, String imgUrl, Long price, FreeShare freeShare, Place place, String title) {
